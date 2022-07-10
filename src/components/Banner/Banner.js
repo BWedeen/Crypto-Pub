@@ -4,7 +4,7 @@ import Carousel from "./Carousel";
 const useStyles = makeStyles((theme) => ({
   banner: {
     backgroundImage: "url(./retro.gif)",
-    backgroundSize: "1800px",
+    backgroundSize: "1920px",
     backgroundRepeat: "no-repeat",
     backgroundPositionY: "-453px",
     backgroundPositionX: "center",
@@ -37,14 +37,14 @@ function Banner() {
   return (
     <Fade in={true} style={{transitionDelay:'300ms'}}>
     <div className={classes.banner}>
-      <Container className={classes.bannerContent} >
+      <Container className={classes.bannerContent}>
         <div className={classes.tagline}>
           <Fade in={true} style={{transitionDelay:'400ms'}}>
             <Typography
               variant="h2"
               style={{
                 fontWeight: "bold",
-                marginBottom: 12,
+                marginTop: 68,
                 fontFamily: "Montserrat",
               }}
             >
@@ -55,7 +55,7 @@ function Banner() {
             <Typography
               variant="subtitle2"
               style={{
-                paddingBottom: 6,
+                paddingTop: 10,
                 color: "white",
                 fontFamily: "Montserrat",
               }}

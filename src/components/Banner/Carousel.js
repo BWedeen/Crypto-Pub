@@ -15,7 +15,8 @@ const useStyles = makeStyles((theme) => ({
     },
     carouselItem: {
       backgroundColor: "rgba(0, 0, 0, 0.65)",
-      margin: "1rem",
+      marginBlock: "1rem",
+      marginInline: "1.5rem",
       borderRadius: "20px",
       boxShadow: "8px 8px rgba(255,220,255,0.3)",
       padding: "1rem",
@@ -91,14 +92,11 @@ const Carousel = () => {
         0: {
             items: 2,
         },
-        500: {
+        600: {
             items: 3,
         },
         850: {
             items: 4,
-        },
-        1100: {
-            items: 5,
         },
     };
 

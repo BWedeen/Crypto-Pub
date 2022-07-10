@@ -1,6 +1,7 @@
 import React from 'react'
 import { AppBar, Container, Toolbar, Typography, Select, MenuItem, makeStyles, createTheme, ThemeProvider, Fade } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
+import { FaFortAwesomeAlt } from 'react-icons/fa';
 
 import { CryptoState } from '../CryptoContext';
 
@@ -36,6 +37,14 @@ const Header = () => {
             <AppBar color="transparent" position="absolute">
                 <Container>
                     <Toolbar>
+                        <FaFortAwesomeAlt
+                            size={"40"}
+                            style={{
+                              cursor: "pointer",
+                              paddingRight: "10px",
+                            }}
+                            onClick={()=> history.push("/")}
+                        />
                         <Typography onClick={()=> history.push("/")} className={classes.title}>Crypto Hub</Typography>
                         <Select 
                             value={currency}
