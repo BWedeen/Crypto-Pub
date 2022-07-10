@@ -123,7 +123,7 @@ const CoinsTable = () => {
 
                                             return (
                                                 <TableRow
-                                                    onClick={() => history.push(`/coinds/${row.id}`)}
+                                                    onClick={() => history.push(`/coins/${row.id}`)}
                                                     className={classes.row}
                                                     key={row.name}
                                                 >
