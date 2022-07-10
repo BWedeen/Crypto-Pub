@@ -35,7 +35,7 @@ const Header = () => {
   return (
     <ThemeProvider theme={darkTheme}>
         <Fade in={true} style={{transitionDelay:'100ms'}}>
-            <AppBar color="transparent" position="absolute">
+            <AppBar elevation={0} color="transparent" position="absolute">
                 <Container>
                     <Toolbar>
                         <GiSunglasses
