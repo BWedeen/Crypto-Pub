@@ -1,15 +1,20 @@
-import { Container, makeStyles, Typography } from "@material-ui/core";
+import { Container, makeStyles, Typography, Fade } from "@material-ui/core";
 import Carousel from "./Carousel";
 
 const useStyles = makeStyles((theme) => ({
   banner: {
-    backgroundImage: "url(./banner.jpg)",
+    backgroundImage: "url(./retro.gif)",
+    backgroundSize: "1800px",
+    backgroundRepeat: "no-repeat",
+    backgroundPositionY: "-453px",
+    backgroundPositionX: "center",
+    position: "relative",
   },
   bannerContent: {
-    height: 400,
+    height: 500,
     display: "flex",
     flexDirection: "column",
-    paddingTop: 25,
+    paddingTop: 5,
     justifyContent: "space-around",
   },
   tagline: {
@@ -30,32 +35,39 @@ function Banner() {
   const classes = useStyles();
 
   return (
+    <Fade in={true} style={{transitionDelay:'300ms'}}>
     <div className={classes.banner}>
-      <Container className={classes.bannerContent}>
+      <Container className={classes.bannerContent} >
         <div className={classes.tagline}>
-          <Typography
-            variant="h2"
-            style={{
-              fontWeight: "bold",
-              marginBottom: 15,
-              fontFamily: "Montserrat",
-            }}
-          >
-            Crypto Hub
-          </Typography>
-          <Typography
-            variant="subtitle2"
-            style={{
-              color: "darkgrey",
-              fontFamily: "Montserrat",
-            }}
-          >
-            Keep track of every major cryptocurrency, all in one place.
-          </Typography>
+          <Fade in={true} style={{transitionDelay:'400ms'}}>
+            <Typography
+              variant="h2"
+              style={{
+                fontWeight: "bold",
+                marginBottom: 12,
+                fontFamily: "Montserrat",
+              }}
+            >
+              Crypto Hub
+            </Typography>
+          </Fade>
+          <Fade in={true} style={{transitionDelay:'580ms'}}>
+            <Typography
+              variant="subtitle2"
+              style={{
+                paddingBottom: 6,
+                color: "white",
+                fontFamily: "Montserrat",
+              }}
+            >
+              Keep track of every major cryptocurrency, all in one place.
+            </Typography>
+          </Fade>
         </div>
         <Carousel />
       </Container>
     </div>
+    </Fade>
   );
 }
 

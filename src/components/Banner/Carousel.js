@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { makeStyles } from "@material-ui/core";
+import { makeStyles, Fade } from "@material-ui/core";
 import axios from "axios";
 
 import { CryptoState } from '../../CryptoContext';
@@ -14,6 +14,11 @@ const useStyles = makeStyles((theme) => ({
       alignItems: "center",
     },
     carouselItem: {
+      backgroundColor: "rgba(0, 0, 0, 0.65)",
+      margin: "1rem",
+      borderRadius: "20px",
+      boxShadow: "8px 8px rgba(255,220,255,0.3)",
+      padding: "1rem",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
@@ -40,7 +45,7 @@ const Carousel = () => {
         setTrending(data);
     };
 
-    console.log(trending);
+    //console.log("Trending Coin Data:", trending);
 
     useEffect(() => {
         fetchTrendingCoins();
@@ -51,6 +56,7 @@ const Carousel = () => {
         let profit = coin.price_change_percentage_24h >= 0;
 
         return(
+            <Fade in={true} style={{transitionDelay:'850ms'}}>
             <Link
                 className={classes.carouselItem}
                 to={`/coins/${coin.id}`}
@@ -74,9 +80,10 @@ const Carousel = () => {
                     </span>
                 </span>
                 <span style={{ fontSize: 22, fontWeight: 500 }}>
-                    {symbol}{numberWithCommas(coin?.current_price.toFixed(2))}
+                    {symbol} {numberWithCommas(coin?.current_price.toFixed(2))}
                 </span>
             </Link>
+            </Fade>
         )
     })
 
@@ -84,7 +91,13 @@ const Carousel = () => {
         0: {
             items: 2,
         },
-        512: {
+        500: {
+            items: 3,
+        },
+        850: {
+            items: 4,
+        },
+        1100: {
             items: 5,
         },
     };
@@ -93,7 +106,7 @@ const Carousel = () => {
         <div className='classes.carousel'>
             <AliceCarousel
                 mouseTracking infinite
-                autoPlayInterval={1000}
+                autoPlayInterval={900}
                 animationDuration={1500}
                 disableDotsControls
                 disableButtonsControls
