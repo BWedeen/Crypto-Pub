@@ -1,7 +1,7 @@
 import React from 'react'
 import { AppBar, Container, Toolbar, Typography, Select, MenuItem, makeStyles, createTheme, ThemeProvider, Fade } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
-import { FaFortAwesomeAlt } from 'react-icons/fa';
+import { GiSunglasses } from 'react-icons/gi';
 
 import { CryptoState } from '../CryptoContext';
 
@@ -19,6 +19,7 @@ const Header = () => {
 
     const history = useHistory();
     const {currency, setCurrency } = CryptoState();
+
     const classes = useStyles();
     const darkTheme = createTheme({
         palette: {
@@ -37,8 +38,8 @@ const Header = () => {
             <AppBar color="transparent" position="absolute">
                 <Container>
                     <Toolbar>
-                        <FaFortAwesomeAlt
-                            size={"40"}
+                        <GiSunglasses
+                            size={"60"}
                             style={{
                               cursor: "pointer",
                               paddingRight: "10px",

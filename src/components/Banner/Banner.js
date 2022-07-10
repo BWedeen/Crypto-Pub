@@ -35,11 +35,11 @@ function Banner() {
   const classes = useStyles();
 
   return (
-    <Fade in={true} style={{transitionDelay:'300ms'}}>
+    <Fade in={true} style={{transitionDelay:'200ms'}}>
     <div className={classes.banner}>
       <Container className={classes.bannerContent}>
         <div className={classes.tagline}>
-          <Fade in={true} style={{transitionDelay:'400ms'}}>
+          <Fade in={true} style={{transitionDelay:'300ms'}}>
             <Typography
               variant="h2"
               style={{
@@ -51,7 +51,7 @@ function Banner() {
               Crypto Hub
             </Typography>
           </Fade>
-          <Fade in={true} style={{transitionDelay:'580ms'}}>
+          <Fade in={true} style={{transitionDelay:'480ms'}}>
             <Typography
               variant="subtitle2"
               style={{

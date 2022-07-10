@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { makeStyles, Fade } from "@material-ui/core";
+import { makeStyles, Fade, Collapse } from "@material-ui/core";
 import axios from "axios";
 
 import { CryptoState } from '../../CryptoContext';
@@ -57,33 +57,33 @@ const Carousel = () => {
         let profit = coin.price_change_percentage_24h >= 0;
 
         return(
-            <Fade in={true} style={{transitionDelay:'850ms'}}>
-            <Link
-                className={classes.carouselItem}
-                to={`/coins/${coin.id}`}
-            >
-                <img 
-                    src={coin?.image}
-                    alt={coin.name}
-                    height="80"
-                    style={{ marginBottom: 10 }}
-                />
-                <span>
-                    {coin?.symbol}
-                    &nbsp;
-                    <span
-                        style={{
-                           color: profit > 0 ? "rgb(14,203,129)" : "red",
-                           fontWeight: 700,
-                        }}
-                    >
-                        {profit && "+"}{coin?.price_change_percentage_24h?.toFixed(2)}%
+            <Fade in={true} style={{transitionDelay:'550ms'}}>
+                <Link
+                    className={classes.carouselItem}
+                    to={`/coins/${coin.id}`}
+                >
+                    <img 
+                        src={coin?.image}
+                        alt={coin.name}
+                        height="80"
+                        style={{ marginBottom: 10 }}
+                    />
+                    <span>
+                        {coin?.symbol}
+                        &nbsp;
+                        <span
+                            style={{
+                            color: profit > 0 ? "rgb(14,203,129)" : "red",
+                            fontWeight: 700,
+                            }}
+                        >
+                            {profit && "+"}{coin?.price_change_percentage_24h?.toFixed(2)}%
+                        </span>
                     </span>
-                </span>
-                <span style={{ fontSize: 22, fontWeight: 500 }}>
-                    {symbol} {numberWithCommas(coin?.current_price.toFixed(2))}
-                </span>
-            </Link>
+                    <span style={{ fontSize: 22, fontWeight: 500 }}>
+                        {symbol}{numberWithCommas(coin?.current_price.toFixed(2))}
+                    </span>
+                </Link>
             </Fade>
         )
     })
@@ -104,13 +104,14 @@ const Carousel = () => {
         <div className='classes.carousel'>
             <AliceCarousel
                 mouseTracking infinite
-                autoPlayInterval={900}
+                autoPlayInterval={1100}
                 animationDuration={1500}
                 disableDotsControls
                 disableButtonsControls
                 responsive={responsive}
                 autoPlay 
                 items={items}
+                autoPlayDirection="rtl"
             />
         </div>
     )
