@@ -24,7 +24,9 @@ const CoinPage = () => {
 
   console.log("Page", coin);
 
-  const profit = coin?.market_data.price_change_percentage_24h > 0;
+  const profit1h = coin?.market_data.price_change_percentage_1h_in_currency[currency.toLowerCase()].toFixed(2) > 0;
+  const profit24h = coin?.market_data.price_change_percentage_24h.toFixed(2) > 0;
+  const profit7d = coin?.market_data.price_change_percentage_7d.toFixed(2) > 0;
 
   useEffect(() => {
     fetchCoin();
@@ -35,15 +37,15 @@ const CoinPage = () => {
     container: {
       display: "flex",
       paddingTop: "80px",
-      [theme.breakpoints.down("md")]: {
+      [theme.breakpoints.down("lg")]: {
         flexDirection: "column",
         alignItems: "center",
       },
     },
     sidebar:{
-      width: "31%",
+      width: "28%",
       marginLeft: "60px",
-      [theme.breakpoints.down("md")]: {
+      [theme.breakpoints.down("lg")]: {
         width: "100%",
         marginLeft: "0px",
         alignItems: "center",
@@ -56,7 +58,7 @@ const CoinPage = () => {
     sidebarTop: {
       display: "flex",
       flexDirection: "row",
-      [theme.breakpoints.down("md")]: {
+      [theme.breakpoints.down("lg")]: {
         width: "100%",
         paddingLeft: 0,
         flexDirection: "column",
@@ -67,7 +69,7 @@ const CoinPage = () => {
     sidebarTopRow: {
       marginTop: "45px",
       marginInline: "7%",
-      [theme.breakpoints.down("md")]: {
+      [theme.breakpoints.down("lg")]: {
         marginTop: "10px",
         marginBottom: "10px",
       },
@@ -94,10 +96,24 @@ const CoinPage = () => {
       display: "flex",
       flexDirection: "column",
       marginRight: "3rem",
-      [theme.breakpoints.down("md")]: {
+      [theme.breakpoints.down("lg")]: {
         width: "100%",
         paddingLeft: 0,
         marginRight: "0rem",
+        flexDirection: "column",
+        alignItems: "center",
+        textAlign: "center",
+      },
+    },
+    rightColumn:{
+      width: "74%",
+      display: "flex",
+      flexDirection: "column",
+      marginInline: "2rem",
+      [theme.breakpoints.down("lg")]: {
+        width: "100%",
+        paddingLeft: 0,
+        margin: "0rem",
         flexDirection: "column",
         alignItems: "center",
         textAlign: "center",
@@ -107,7 +123,7 @@ const CoinPage = () => {
       fontFamily: "Montserrat",
       fontSize: "22px",
       fontWeight: "600",
-      [theme.breakpoints.down("md")]: {
+      [theme.breakpoints.down("lg")]: {
         fontSize: "20px",
         fontWeight: "600",
       },
@@ -119,7 +135,7 @@ const CoinPage = () => {
     rowText3:{
       fontFamily: "Montserrat",
       fontSize: "20px",
-      [theme.breakpoints.down("md")]: {
+      [theme.breakpoints.down("lg")]: {
         paddingLeft: 27
       },
     },
@@ -127,7 +143,7 @@ const CoinPage = () => {
       fontFamily: "Montserrat",
       fontSize: "30px",
       fontWeight: "600",
-      [theme.breakpoints.down("md")]: {
+      [theme.breakpoints.down("lg")]: {
         paddingLeft: 27,
         fontWeight: "600",
       },
@@ -148,11 +164,11 @@ const CoinPage = () => {
         </div>
       </div>
       <div style={{display: 'flex', justifyContent: 'center', alignContent: "center", width:"69%", paddingTop: '13rem', overflow:"hidden"}}>
-          <CircularProgress
-                      style={{ color: "white" }}
-                      size={350}
-                      thickness={1}
-          />
+        <CircularProgress
+          style={{ color: "white" }}
+          size={250}
+          thickness={1}
+        />
       </div>
     </div>
   )
@@ -190,56 +206,78 @@ const CoinPage = () => {
             <Typography className={classes.rowText}>
               Current Price
             </Typography>
-            <Typography className={classes.rowText2}>
+            <Typography className={classes.rowText2} style={{color:"#e2dbff"}}>
               {symbol}{numberWithCommas(parseFloat(coin?.market_data.current_price[currency.toLowerCase()]).toFixed(2))}
             </Typography>
           </div>
           <div className={classes.column}>
             <Typography className={classes.rowText}>
-              24h Change
+              1h Change
             </Typography>
             <Typography 
               className={classes.rowText2}
               style={{
-                color: profit > 0 ? "rgb(14, 203, 129)" : "red",
+                color: profit1h > 0 ? "rgb(14, 203, 129)" : "red",
               }}
             >
-            {coin?.market_data.price_change_percentage_24h.toFixed(2)}%
+            {profit1h && "+"}{coin?.market_data.price_change_percentage_1h_in_currency[currency.toLowerCase()].toFixed(2)}%
             </Typography>
           </div>
         </div>
         <div className={classes.row}>
           <div className={classes.column}>
-            <Typography className={classes.rowText} style={{color:"#ffcfcf"}}>
-            24h Low
+            <Typography className={classes.rowText}>
+              24H Change
             </Typography>
-            <Typography className={classes.rowText2}>
-            {symbol}{numberWithCommas(parseFloat(coin?.market_data.high_24h[currency.toLowerCase()]).toFixed(2))}
+            <Typography className={classes.rowText2} style={{color: profit24h > 0 ? "rgb(14, 203, 129)" : "red"}}>
+            {profit24h && "+"}{coin?.market_data.price_change_percentage_24h.toFixed(2)}%
             </Typography>
           </div>
           <div className={classes.column}>
-            <Typography className={classes.rowText} style={{color:"#d2ffcf"}}>
-              24h High
+            <Typography className={classes.rowText}>
+              7D Change
             </Typography>
             <Typography 
               className={classes.rowText2}
+              style={{color: profit7d > 0 ? "rgb(14, 203, 129)" : "red"}}
             >
-            {symbol}{numberWithCommas(parseFloat(coin?.market_data.low_24h[currency.toLowerCase()]).toFixed(2))}
+            {profit7d && "+"}{coin?.market_data.price_change_percentage_7d.toFixed(2)}%
             </Typography>
           </div>
         </div>
         <div className={classes.row}>
-          <div style={{width:"90%"}}>
+          <div className={classes.column}>
+            <Typography className={classes.rowText}>
+            24h Low
+            </Typography>
+            <Typography className={classes.rowText2} style={{color:"#ffcfcf"}}>
+            {symbol}{numberWithCommas(parseFloat(coin?.market_data.low_24h[currency.toLowerCase()]).toFixed(2))}
+            </Typography>
+          </div>
+          <div className={classes.column}>
+            <Typography className={classes.rowText}>
+              24h High
+            </Typography>
+            <Typography className={classes.rowText2} style={{color:"#d2ffcf"}}>
+            {symbol}{numberWithCommas(parseFloat(coin?.market_data.high_24h[currency.toLowerCase()]).toFixed(2))}
+            </Typography>
+          </div>
+        </div>
+        
+      </div>
+      <div className={classes.rightColumn}>
+        <CoinInfo coin={coin}/>
+        <div className={classes.row}>
+          <div style={{width:"100%"}}>
             <Typography className={classes.rowText4} style={{marginBottom:"20px"}} >
-              Coin Description
+              About {coin?.name}
             </Typography>
             <Typography className={classes.rowText3}>
-              {ReactHtmlParser(coin?.description.en.split(". ")[0])}. {ReactHtmlParser(coin?.description.en.split(". ")[1])}.
+              {ReactHtmlParser(coin?.description.en.split(". ")[0] + ". " + coin?.description.en.split(". ")[1] + ". " + coin?.description.en.split(". ")[2])}.
             </Typography>
           </div>
         </div>
       </div>
-      <CoinInfo coin={coin}/>
     </div>
   )
 }
