@@ -2,7 +2,8 @@ import axios from 'axios';
 import React, { useState, useEffect, } from 'react'
 import { useHistory } from 'react-router-dom';
 import { CoinList } from '../config/api';
-import { createTheme,  makeStyles, ThemeProvider, Fade, Container, Typography, TextField, TableContainer, TableHead, TableRow, Table, TableBody, TableCell, LinearProgress } from '@material-ui/core';
+import { Tooltip, createTheme,  makeStyles, ThemeProvider, Fade, Container, Typography, TextField, TableContainer, TableHead, TableRow, Table, TableBody, TableCell, LinearProgress } from '@material-ui/core';
+import { AiOutlineInfoCircle } from 'react-icons/ai';
 
 import { CryptoState } from '../CryptoContext';
 import { numberWithCommas } from './Banner/Carousel';
@@ -66,21 +67,32 @@ const CoinsTable = () => {
 
     return (
         <ThemeProvider theme={darkTheme}>
-            <Fade in={true} style={{transitionDelay:'900ms'}} >
+            <Fade in={true} style={{transitionDelay:'450ms'}} >
                 <Container style={{ textAlign: "center" }}>
+                    <Tooltip title="A high market cap implies that the asset is highly valued by the market." placement='top-middle'>
                     <Typography
                         variant="h4"
                         style={{ 
                             textAlign: "left", 
                             marginTop: "3rem",
                             marginBottom: "1rem",
-                            fontFamily: "Montserrat" ,
+                            fontFamily: "'Bungee', cursive",
                             fontWeight: "200",
                             color: "white",
                         }}
                     >
                         Cryptocurrency by Market Cap
+                        
+                        <AiOutlineInfoCircle
+                            size={"15"}
+                            style={{
+                            marginLeft: "10px",
+                            marginBottom: "5px"
+                            }}     
+                        />
+                        
                     </Typography>
+                    </Tooltip>
                     <TextField
                         onChange={(e)=>setSearch(e.target.value)}
                         label="Search Cryptocurrencies"

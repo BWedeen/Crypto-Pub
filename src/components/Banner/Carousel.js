@@ -61,7 +61,7 @@ const Carousel = () => {
         let profit = coin.price_change_percentage_24h >= 0;
 
         return(
-            <Fade in={true} style={{transitionDelay:'550ms'}}>
+            <Fade in={true} style={{transitionDelay:'400ms'}}>
                 <Link
                     className={classes.carouselItem}
                     to={`/coins/${coin.id}`}

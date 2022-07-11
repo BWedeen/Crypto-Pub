@@ -1,7 +1,7 @@
 import React from 'react'
 import { AppBar, Container, Toolbar, Typography, Select, MenuItem, makeStyles, createTheme, ThemeProvider, Fade } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
-import { GiSunglasses } from 'react-icons/gi';
+import { FaFortAwesomeAlt } from 'react-icons/fa';
 
 import { CryptoState } from '../CryptoContext'
 
@@ -9,7 +9,9 @@ const useStyles = makeStyles(() => ({
     title: {
         flex: 1,
         color: "white",
-        fontFamily: "Montserrat",
+        fontFamily: "'Bungee', cursive",
+        letterSpacing: 2.8,
+        fontSize: 21,
         fontWeight: "bold",
         cursor: "pointer",
     }
@@ -38,7 +40,7 @@ const Header = () => {
             <AppBar elevation={0}color="transparent" position="absolute">
                 <Container>
                     <Toolbar>
-                        <GiSunglasses
+                        <FaFortAwesomeAlt
                             size={"60"}
                             style={{
                               cursor: "pointer",
@@ -54,7 +56,6 @@ const Header = () => {
                             style= {{
                                 width: 100,
                                 height: 40,
-                                marginRight: 15,
                             }}
                         >
                             <MenuItem value={'USD'}>USD</MenuItem>

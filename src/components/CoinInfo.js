@@ -82,11 +82,12 @@ const CoinInfo = ({ coin }) => {
       alignItmes: "center",
       marginTop: 35,
       paddingBlock: 40,
-      [theme.breakpoints.down("md")]: {
+      [theme.breakpoints.down("lg")]: {
         width: "100%",
         marginTop: 0,
         padding: 20,
         paddingTop: 0,
+        marginInline:"4rem",
       },
     },
     heading:{
@@ -94,6 +95,17 @@ const CoinInfo = ({ coin }) => {
       fontSize: "35px",
       paddingLeft: 60,
       textAlign:"center",
+      [theme.breakpoints.down("md")]: {
+        width: "100%",
+        fontSize: 15,
+      },
+    },
+    buttonRow:{
+      [theme.breakpoints.down("md")]: {
+        width: "100%",
+        textAlign: "center",
+        fontSize: 13,
+      },
     },
   }));
 
@@ -111,7 +123,7 @@ const CoinInfo = ({ coin }) => {
                 variant="h3"
                 className={classes.heading}
               >
-                {coin.name} price over 
+                {coin.name} price ({currency}) over 
                 <b>
                   {days===1 && " the past 24 hours"}
                   {days===7 && " the past week"}
@@ -120,7 +132,7 @@ const CoinInfo = ({ coin }) => {
                   {days===90 && " the past 3 months"}
                   {days===365 && " the past year"}
                   {days===1096 && " the past 3 years"}
-                  {days==="max" && " it's entire existence"}
+                  {days==="max" && " it's existence"}
                 </b>.
               </Typography>
               <Line
@@ -179,6 +191,7 @@ const CoinInfo = ({ coin }) => {
                 }}
               />
               <div
+                className={classes.buttonRow}
                 style={{
                   display: "flex",
                   marginTop: 20,
@@ -197,6 +210,7 @@ const CoinInfo = ({ coin }) => {
                 ))}
               </div>
               <div
+                className={classes.buttonRow}
                 style={{
                   display: "flex",
                   marginTop: 20,
