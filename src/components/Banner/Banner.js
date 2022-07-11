@@ -58,7 +58,7 @@ function Banner() {
               style={{
                 paddingTop: 17,
                 color: "white",
-                letterSpacing: 0.8,
+                letterSpacing: 1,
                 fontFamily: "'Montserrat Alternates', sans-serif",
               }}
             >

@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import ReactHtmlParser from "react-html-parser";
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 
+
 import { CryptoState } from '../CryptoContext';
 import { SingleCoin } from '../config/api';
 import CoinInfo from '../components/CoinInfo';
@@ -216,13 +217,14 @@ const CoinPage = () => {
         <Fade in={true} style={{transitionDelay:'150ms'}}>
           <div className={classes.row}>
             <div className={classes.column}>
-              <Tooltip title="The current price of the coin." placement='top-start'>
+              <Tooltip title="The current price of this asset." placement='top-start'>
                 <Typography className={classes.rowText}>
                   Current Price
                   <AiOutlineInfoCircle
                     size={"15"}
                     style={{
                       marginLeft: "5px",
+                      color: "lightgray",
                     }}     
                  />
                 </Typography>
@@ -239,6 +241,7 @@ const CoinPage = () => {
                       size={"15"}
                       style={{
                         marginLeft: "5px",
+                        color: "lightgray",
                       }}     
                   />
                 </Typography>
@@ -264,6 +267,7 @@ const CoinPage = () => {
                       size={"15"}
                       style={{
                         marginLeft: "5px",
+                        color: "lightgray",
                       }}     
                   />
                 </Typography>
@@ -280,6 +284,7 @@ const CoinPage = () => {
                       size={"15"}
                       style={{
                         marginLeft: "5px",
+                        color: "lightgray",
                       }}     
                   />
                 </Typography>
@@ -303,6 +308,7 @@ const CoinPage = () => {
                         size={"15"}
                         style={{
                           marginLeft: "5px",
+                          color: "lightgray",
                         }}     
                     />
                 </Typography>
@@ -319,6 +325,7 @@ const CoinPage = () => {
                       size={"15"}
                       style={{
                         marginLeft: "5px",
+                        color: "lightgray",
                       }}     
                   />
                 </Typography>
@@ -339,6 +346,7 @@ const CoinPage = () => {
                       size={"15"}
                       style={{
                         marginLeft: "5px",
+                        color: "lightgray",
                       }}     
                   />
                 </Typography>
@@ -355,6 +363,7 @@ const CoinPage = () => {
                       size={"15"}
                       style={{
                         marginLeft: "5px",
+                        color: "lightgray",
                       }}     
                   />
                 </Typography>
@@ -371,7 +380,7 @@ const CoinPage = () => {
           <div className={classes.rightColumn}>
             <CoinInfo coin={coin}/>
             <div style={{width:"100%"}}>
-              <Typography className={classes.rowText4} style={{marginBottom:"20px"}} >
+              <Typography className={classes.rowText4} style={{marginBlock:"20px"}} >
                 About {coin?.name}
               </Typography>
               <Typography className={classes.rowText5}>

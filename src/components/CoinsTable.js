@@ -69,7 +69,7 @@ const CoinsTable = () => {
         <ThemeProvider theme={darkTheme}>
             <Fade in={true} style={{transitionDelay:'450ms'}} >
                 <Container style={{ textAlign: "center" }}>
-                    <Tooltip title="A high market cap implies that the asset is highly valued by the market." placement='top-middle'>
+                    <Tooltip title="A high market cap implies that the asset is highly valued by the market." placement='top'>
                     <Typography
                         variant="h4"
                         style={{ 
@@ -87,7 +87,8 @@ const CoinsTable = () => {
                             size={"15"}
                             style={{
                             marginLeft: "10px",
-                            marginBottom: "5px"
+                            marginBottom: "5px",
+                            color: "lightgray",
                             }}     
                         />
                         
@@ -121,7 +122,7 @@ const CoinsTable = () => {
                                                         fontFamily: "Montserrat" ,
                                                     }}
                                                     key={head}    
-                                                    align={head === "Coin" ? "" : "right"}
+                                                    align={head === "Coin" ? "left" : "right"}
                                                 >
                                                     {head}
                                                 </TableCell>
@@ -217,7 +218,7 @@ const CoinsTable = () => {
                         display: "flex",
                         justifyContent: "center",
                     }}
-                    count={(handleSearch()?.length/10).toFixed(0)}
+                    count={parseInt((handleSearch()?.length/10).toFixed(0))}
                     onChange={(_, value) => {
                         setPage(value);
                         window.scroll(0,450);

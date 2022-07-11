@@ -93,8 +93,8 @@ const CoinInfo = ({ coin }) => {
     heading:{
       fontFamily: "Montserrat",
       fontSize: "35px",
-      paddingLeft: 60,
       textAlign:"center",
+      marginBottom: "10px",
       [theme.breakpoints.down("md")]: {
         width: "100%",
         fontSize: 15,
@@ -132,7 +132,7 @@ const CoinInfo = ({ coin }) => {
                   {days===90 && " the past 3 months"}
                   {days===365 && " the past year"}
                   {days===1096 && " the past 3 years"}
-                  {days==="max" && " it's existence"}
+                  {days==="max" && " it's lifetime"}
                 </b>.
               </Typography>
               <Line

@@ -5,70 +5,64 @@ import { FaFortAwesomeAlt } from 'react-icons/fa';
 
 import { CryptoState } from '../CryptoContext'
 
-const useStyles = makeStyles(() => ({
-    title: {
-        flex: 1,
-        color: "white",
-        fontFamily: "'Bungee', cursive",
-        letterSpacing: 2.8,
-        fontSize: 21,
-        fontWeight: "bold",
-        cursor: "pointer",
-    }
-}))
+    const useStyles = makeStyles(() => ({
+        title: {
+            flex: 1,
+            color: "white",
+            fontFamily: "'Bungee', cursive",
+            letterSpacing: 2.8,
+            fontSize: 21,
+            fontWeight: "bold",
+            cursor: "pointer",
+        }
+    }))
 
-const Header = () => {
+    const Header = () => {
+        const history = useHistory();
+        const {currency, setCurrency } = CryptoState();
 
-    const history = useHistory();
-    const {currency, setCurrency } = CryptoState();
-
-    const classes = useStyles();
-    const darkTheme = createTheme({
-        palette: {
-            primary: {
-                main: "#080808",
-            },
-            type: "dark",
-    },
-});
-
-  
-
-  return (
-    <ThemeProvider theme={darkTheme}>
-        <Fade in={true} style={{transitionDelay:'100ms'}}>
-            <AppBar elevation={0}color="transparent" position="absolute">
-                <Container>
-                    <Toolbar>
-                        <FaFortAwesomeAlt
-                            size={"60"}
-                            style={{
-                              cursor: "pointer",
-                              paddingRight: "10px",
-                            }}
-                            onClick={()=> history.push("/")}
-                        />
-                        <Typography onClick={()=> history.push("/")} className={classes.title}>Crypto Hub</Typography>
-                        <Select 
-                            value={currency}
-                            onChange={(e) => setCurrency(e.target.value)}
-                            variant="outlined"
-                            style= {{
-                                width: 100,
-                                height: 40,
-                            }}
-                        >
-                            <MenuItem value={'USD'}>USD</MenuItem>
-                            <MenuItem value={'EUR'}>EUR</MenuItem>
-                            <MenuItem value={'GBP'}>GBP</MenuItem>
-                            <MenuItem value={'ETH'}>ETH</MenuItem>
-                        </Select>
-                    </Toolbar>
-                </Container>
-            </AppBar>
-        </Fade>
-    </ThemeProvider>
-  )
+        const classes = useStyles();
+        const darkTheme = createTheme({
+            palette: {
+                primary: {
+                    main: "#080808",
+                },
+                type: "dark",
+        },
+    });
+    
+    return (
+        <ThemeProvider theme={darkTheme}>
+            <Fade in={true} style={{transitionDelay:'100ms'}}>
+                <AppBar elevation={0}color="transparent" position="absolute">
+                    <Container>
+                        <Toolbar>
+                            <FaFortAwesomeAlt
+                                size={"60"}
+                                style={{
+                                cursor: "pointer",
+                                paddingRight: "10px",
+                                }}
+                                onClick={()=> history.push("/")}
+                            />
+                            <Typography onClick={()=> history.push("/")} className={classes.title}>Crypto Hub</Typography>
+                            <Select 
+                                value={currency}
+                                onChange={(e) => setCurrency(e.target.value)}
+                                variant="outlined"
+                                style={{ width: 90, height: 40, marginLeft: 15 }}
+                            >
+                                <MenuItem value={'USD'}>USD</MenuItem>
+                                <MenuItem value={'EUR'}>EUR</MenuItem>
+                                <MenuItem value={'GBP'}>GBP</MenuItem>
+                                <MenuItem value={'ETH'}>ETH</MenuItem>
+                            </Select>
+                        </Toolbar>
+                    </Container>
+                </AppBar>
+            </Fade>
+        </ThemeProvider>
+    )
 }
 
 export default Header
