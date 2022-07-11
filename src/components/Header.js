@@ -3,7 +3,7 @@ import { AppBar, Container, Toolbar, Typography, Select, MenuItem, makeStyles, c
 import { useHistory } from 'react-router-dom';
 import { GiSunglasses } from 'react-icons/gi';
 
-import { CryptoState } from '../CryptoContext';
+import { CryptoState } from '../CryptoContext'
 
 const useStyles = makeStyles(() => ({
     title: {
@@ -35,7 +35,7 @@ const Header = () => {
   return (
     <ThemeProvider theme={darkTheme}>
         <Fade in={true} style={{transitionDelay:'100ms'}}>
-            <AppBar elevation={0} color="transparent" position="absolute">
+            <AppBar elevation={0}color="transparent" position="absolute">
                 <Container>
                     <Toolbar>
                         <GiSunglasses

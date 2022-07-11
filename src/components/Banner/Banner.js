@@ -44,8 +44,9 @@ function Banner() {
               variant="h2"
               style={{
                 fontWeight: "bold",
-                marginTop: 68,
-                fontFamily: "Montserrat",
+                marginTop: -45,
+                letterSpacing: 8.8,
+                fontFamily: "'Bungee Inline', cursive",
               }}
             >
               Crypto Hub
@@ -55,9 +56,10 @@ function Banner() {
             <Typography
               variant="subtitle2"
               style={{
-                paddingTop: 10,
+                paddingTop: 17,
                 color: "white",
-                fontFamily: "Montserrat",
+                letterSpacing: 0.8,
+                fontFamily: "'Montserrat Alternates', sans-serif",
               }}
             >
               Keep track of every major cryptocurrency, all in one place.

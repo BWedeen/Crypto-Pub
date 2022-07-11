@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { makeStyles, Fade, Collapse } from "@material-ui/core";
+import { makeStyles, Fade } from "@material-ui/core";
 import axios from "axios";
 
 import { CryptoState } from '../../CryptoContext';
@@ -53,6 +53,7 @@ const Carousel = () => {
 
     useEffect(() => {
         fetchTrendingCoins();
+        //eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currency]);
 
     const items = trending.map((coin) => {
