@@ -5,7 +5,7 @@ import { FaFortAwesomeAlt } from 'react-icons/fa';
 
 import { CryptoState } from '../CryptoContext'
 
-    const useStyles = makeStyles(() => ({
+    const useStyles = makeStyles((theme) => ({
         title: {
             flex: 1,
             color: "white",
@@ -14,7 +14,11 @@ import { CryptoState } from '../CryptoContext'
             fontSize: 21,
             fontWeight: "bold",
             cursor: "pointer",
-        }
+            [theme.breakpoints.down("md")]: {
+                letterSpacing: 2.8,
+                fontSize: 15,
+            },
+        },
     }))
 
     const Header = () => {
@@ -38,10 +42,10 @@ import { CryptoState } from '../CryptoContext'
                     <Container>
                         <Toolbar>
                             <FaFortAwesomeAlt
-                                size={"60"}
+                                size={"50"}
                                 style={{
-                                cursor: "pointer",
-                                paddingRight: "10px",
+                                    cursor: "pointer",
+                                    paddingRight: "10px",
                                 }}
                                 onClick={()=> history.push("/")}
                             />
