@@ -1,4 +1,4 @@
-import { createTheme, makeStyles, ThemeProvider, CircularProgress, Typography } from '@material-ui/core';
+import { createTheme, makeStyles, ThemeProvider, Typography } from '@material-ui/core';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { HistoricalChart } from '../config/api';
@@ -25,6 +25,7 @@ const CoinInfo = ({ coin }) => {
 
   useEffect(()=>{
     fetchHistoricData();
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   },[currency, days])
 
   const chartDays = [

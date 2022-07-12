@@ -45,7 +45,7 @@ import { CryptoState } from '../CryptoContext'
                                 }}
                                 onClick={()=> history.push("/")}
                             />
-                            <Typography onClick={()=> history.push("/")} className={classes.title}>Crypto Hub</Typography>
+                            <Typography onClick={()=> history.push("/")} className={classes.title}>Crypto Pub</Typography>
                             <Select 
                                 value={currency}
                                 onChange={(e) => setCurrency(e.target.value)}

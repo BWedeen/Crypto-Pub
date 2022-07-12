@@ -49,7 +49,7 @@ function Banner() {
                 fontFamily: "'Bungee', cursive",
               }}
             >
-              Crypto Hub
+              Crypto Pub
             </Typography>
           </Fade>
           <Fade in={true} style={{transitionDelay:'200ms'}}>
