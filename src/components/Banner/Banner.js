@@ -3,19 +3,6 @@ import Carousel from "./Carousel";
 
 const theme = createTheme();
 
-theme.typography.h2 = {
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '40px',
-  },
-};
-
-theme.typography.subtitle2 = {
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '14px',
-    lineHeight: '25px',
-  },
-};
-
 const useStyles = makeStyles((theme) => ({
   banner: {
     backgroundImage: "url(./retro.gif)",
@@ -33,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-around",
     [theme.breakpoints.down('sm')]: {
       height: 525,
-      paddingTop: 112,
+      paddingTop: 125,
     }
   },
   tagline: {
@@ -60,34 +47,30 @@ function Banner() {
       <Container className={classes.bannerContent}>
         <div className={classes.tagline}>
           <Fade in={true} style={{transitionDelay:'150ms'}}>
-            <ThemeProvider theme={theme}>
-              <Typography
-                variant="h2"
-                style={{
-                  fontWeight: "bold",
-                  marginTop: -45,
-                  letterSpacing: 8.8,
-                  fontFamily: "'Bungee', cursive",
-                }}
-              >
-                Crypto Pub
-              </Typography>
-            </ThemeProvider>
+            <Typography
+              variant="h2"
+              style={{
+                fontWeight: "bold",
+                marginTop: -45,
+                letterSpacing: 8.8,
+                fontFamily: "'Bungee', cursive",
+              }}
+            >
+              Crypto Pub
+            </Typography>
           </Fade>
           <Fade in={true} style={{transitionDelay:'200ms'}}>
-            <ThemeProvider theme={theme}>
-              <Typography
-                variant="subtitle2"
-                style={{
-                  paddingTop: 17,
-                  color: "white",
-                  letterSpacing: 1,
-                  fontFamily: "'Montserrat Alternates', sans-serif",
-                }}
-              >
-                Keep track of every major cryptocurrency, all in one place.
-              </Typography>
-            </ThemeProvider>
+            <Typography
+              variant="subtitle2"
+              style={{
+                paddingTop: 17,
+                color: "white",
+                letterSpacing: 1,
+                fontFamily: "'Montserrat Alternates', sans-serif",
+              }}
+            >
+              Keep track of every major cryptocurrency, all in one place.
+            </Typography>
           </Fade>
         </div>
         <Carousel />
