@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: 700,
       fontSize: 11.6,
       fontFamily: "Montserrat",
-    }
+    },
 }));
 
 export default function AuthModal() {
@@ -88,7 +88,7 @@ export default function AuthModal() {
       setAlert({
         open: true,
         message: `Successfully signed in as ${res.user.email}.`,
-        type: "success",
+        type: "success"
       });
       handleClose();
     })

@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
+import { Button } from '@material-ui/core';
 import ReactHtmlParser from "react-html-parser";
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 
@@ -11,29 +12,10 @@ import { SingleCoin } from '../config/api';
 import CoinInfo from '../components/CoinInfo';
 import { Typography, CircularProgress, Tooltip, Fade } from '@material-ui/core';
 import { numberWithCommas } from '../components/Banner/Carousel';
+import { doc, setDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 
 const CoinPage = () => {
-  const { id } = useParams();
-  const [coin, setCoin] = useState()
-
-  const { currency, symbol } = CryptoState();
-
-  const fetchCoin = async () => {
-    const { data } = await axios.get(SingleCoin(id));
-
-    setCoin(data);
-  };
-
-  console.log("Page", coin);
-
-  const profit1h = coin?.market_data.price_change_percentage_1h_in_currency[currency.toLowerCase()].toFixed(2) > 0;
-  const profit24h = coin?.market_data.price_change_percentage_24h.toFixed(2) > 0;
-  const profit7d = coin?.market_data.price_change_percentage_7d.toFixed(2) > 0;
-
-  useEffect(() => {
-    fetchCoin();
-    //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const useStyles = makeStyles((theme) => ({
     container: {
@@ -159,9 +141,64 @@ const CoinPage = () => {
         paddingInline: 27
       },
     },
+    button: {
+      height: "5%",
+      width: "80%",
+      backgroundColor: "white",
+      marginTop: 20,
+      fontFamily: "Montserrat",
+      fontWeight: "700",
+      marginBottom: "30px",
+    },
   }));
 
   const classes = useStyles();
+
+  const { id } = useParams();
+  const [coin, setCoin] = useState()
+
+  const { currency, symbol, user, watchlist, setAlert } = CryptoState();
+
+  const fetchCoin = async () => {
+    const { data } = await axios.get(SingleCoin(id));
+
+    setCoin(data);
+  };
+
+  console.log("Page", coin);
+
+  const profit1h = coin?.market_data.price_change_percentage_1h_in_currency[currency.toLowerCase()].toFixed(2) > 0;
+  const profit24h = coin?.market_data.price_change_percentage_24h.toFixed(2) > 0;
+  const profit7d = coin?.market_data.price_change_percentage_7d.toFixed(2) > 0;
+
+  useEffect(() => {
+    fetchCoin();
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const addToWatchlist = async () => {
+    const coinRef = doc(db,"watchlist", user.uid);
+    console.log(user.uid)
+    try {
+      await setDoc(coinRef, 
+        {coins:watchlist?[coin?.id]:[...watchlist, coin?.id]},
+      )
+      
+      setAlert({
+        open: true,
+        message: `${coin.name} was added to your watchlist.`,
+        type: "success",
+      })
+    } catch (error) {
+      setAlert({
+        open: true,
+        message: `${coin.name} was added to your watchlist.`,
+        type: "success",
+      })
+    }
+  }
+
+  const inWatchlist = watchlist.includes(coin?.id);
 
   if(!coin) return (
     <div className={classes.container}>
@@ -375,6 +412,15 @@ const CoinPage = () => {
             </div>
           </div>
         </Fade>
+        {user && (
+          <Button
+          variant="contained"
+          className={classes.button}
+          onClick={addToWatchlist}
+        >
+          {inWatchlist ? "Remove from watchlist" : "Add to Watchlist"}
+        </Button>
+        )}
       </div>
         <Fade in={true} style={{transitionDelay:'150ms'}}>      
           <div className={classes.rightColumn}>
