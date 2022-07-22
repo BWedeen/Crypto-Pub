@@ -217,7 +217,7 @@ const CoinPage = () => {
         <Fade in={true} style={{transitionDelay:'150ms'}}>
           <div className={classes.row}>
             <div className={classes.column}>
-              <Tooltip title="The current price of this asset." placement='top-start'>
+              <Tooltip title="The current price of this asset." placement='top'>
                 <Typography className={classes.rowText}>
                   Current Price
                   <AiOutlineInfoCircle
@@ -376,7 +376,7 @@ const CoinPage = () => {
           </div>
         </Fade>
       </div>
-        <Fade in={true} style={{transitionDelay:'250ms'}}>      
+        <Fade in={true} style={{transitionDelay:'150ms'}}>      
           <div className={classes.rightColumn}>
             <CoinInfo coin={coin}/>
             <div style={{width:"100%"}}>
@@ -384,7 +384,7 @@ const CoinPage = () => {
                 About {coin?.name}
               </Typography>
               <Typography className={classes.rowText5}>
-                {ReactHtmlParser(coin?.description.en.split(". ")[0] + ". " + coin?.description.en.split(". ")[1] + ". " + coin?.description.en.split(". ")[2])}.
+                {ReactHtmlParser(coin?.description.en.split(". ")[0] + ". " + coin?.description.en.split(". ")[1] + ". ")}
               </Typography>
           </div>
         </div>

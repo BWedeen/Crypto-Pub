@@ -1,9 +1,9 @@
-import { Container, makeStyles, Typography, Fade, createTheme, ThemeProvider } from "@material-ui/core";
+import { Container, makeStyles, Typography, Fade, createTheme } from "@material-ui/core";
 import Carousel from "./Carousel";
 
 const theme = createTheme();
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   banner: {
     backgroundImage: "url(./retro.gif)",
     backgroundSize: "1920px",
@@ -66,6 +66,7 @@ function Banner() {
                 paddingTop: 17,
                 color: "white",
                 letterSpacing: 1,
+                fontWeight: 800,
                 fontFamily: "'Montserrat Alternates', sans-serif",
               }}
             >

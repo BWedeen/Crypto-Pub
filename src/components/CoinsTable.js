@@ -1,7 +1,5 @@
-import axios from 'axios';
 import React, { useState, useEffect, } from 'react'
 import { useHistory } from 'react-router-dom';
-import { CoinList } from '../config/api';
 import { Tooltip, createTheme,  makeStyles, ThemeProvider, Fade, Container, Typography, TextField, TableContainer, TableHead, TableRow, Table, TableBody, TableCell, LinearProgress } from '@material-ui/core';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 
@@ -10,22 +8,17 @@ import { numberWithCommas } from './Banner/Carousel';
 import { Pagination } from '@material-ui/lab';
 
 const CoinsTable = () => {
-    const { currency, symbol } = CryptoState();
+    const { currency, symbol, coins, loading, fetchCoins } = CryptoState();
     const history = useHistory();
 
-    const [coins, setCoins] = useState([])
-    const [loading, setLoading] = useState(false);
+    
     const [search, setSearch] = useState('')
     const [page, setPage] = useState(1);
 
-    const fetchCoins = async () => {
-        setLoading(true);
-
-        const { data } = await axios.get(CoinList(currency));
-
-        setCoins(data);
-        setLoading(false);
-    };
+    useEffect(() => {
+      setPage(1)
+    }, [search])
+    
 
     console.log("Coins Table Data:", coins)
 
@@ -47,8 +40,9 @@ const CoinsTable = () => {
 
     const handleSearch = () => {
         return coins.filter((coin) => (
-            coin.name.toLowerCase().includes(search)
-            || coin.symbol.toLowerCase().includes(search)
+            coin.name.toLowerCase().includes(search.toLowerCase())
+            || coin.symbol.toLowerCase().includes(search.toLowerCase())
+            || coin.symbol.toLowerCase().includes(search.toLowerCase().slice(0, search.length-1))
         ))
     }
 
@@ -68,7 +62,7 @@ const CoinsTable = () => {
     return (
         <ThemeProvider theme={darkTheme}>
             <Fade in={true} style={{transitionDelay:'450ms'}} >
-                <Container style={{ textAlign: "center" }}>
+                <Container style={{ textAlign: "center", minHeight: "800px" }}>
                     <Tooltip title="A high market cap implies that the asset is highly valued by the market." placement='top'>
                     <Typography
                         variant="h4"
@@ -112,7 +106,6 @@ const CoinsTable = () => {
                                 <Table>
                                     <TableHead style={{ backgroundColor: "#fcfcfc" }}>
                                         <TableRow>
-                                            
                                             {["Coin","Price","24h Change", "Market Cap"].map((head) => (
                                                 <TableCell
                                                     style={{

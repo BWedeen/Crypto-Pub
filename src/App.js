@@ -6,6 +6,7 @@ import './App.css';
 import Header from "./components/Header";
 import HomePage from './Pages/HomePage';
 import CoinPage from './Pages/CoinPage';
+import Alert from './components/Alert';
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
         <Route path='/' component={HomePage} exact/>
         <Route path="/coins/:id" component={CoinPage} />
       </div>
+      <Alert/>
     </BrowserRouter>
   );
 }

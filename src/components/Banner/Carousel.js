@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
       cursor: "pointer",
       textTransform: "uppercase",
       color: "white",
+      fontFamily: "Montserrat",
       "&:hover" : {
         transform: "scale(1.02)",
       }
