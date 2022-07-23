@@ -1,6 +1,7 @@
 # Crypto Pub
 Crypto Pub is a responsive web application that gives users detailed information on all cryptocurrencies, and allows them to add any crypto to their personal watchlist.
-![appPreview](appPreview.png)
+
+# ![appPreview](appPreview.png)
 
 ## Built with 
 
