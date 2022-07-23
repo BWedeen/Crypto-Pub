@@ -4,7 +4,7 @@ Crypto Pub is a responsive web application that gives users detailed information
 # ![appPreview](appPreview.png)
 
 # Live Demo:
-[https://cryptopub.netlify.app/](https://cryptopub.netlify.app/) <- May take some time to spin up
+[https://cryptopub.netlify.app/](https://cryptopub.netlify.app/)
 
 # ![appPreview2](appPreview2.png)
 
