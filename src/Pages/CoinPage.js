@@ -141,15 +141,6 @@ const CoinPage = () => {
         paddingInline: 27
       },
     },
-    button: {
-      height: "5%",
-      width: "80%",
-      backgroundColor: "white",
-      marginTop: 20,
-      fontFamily: "Montserrat",
-      fontWeight: "700",
-      marginBottom: "30px",
-    },
   }));
 
   const classes = useStyles();
@@ -165,7 +156,7 @@ const CoinPage = () => {
     setCoin(data);
   };
 
-  console.log("Page", coin);
+  //console.log("Page", coin);
 
   const profit1h = coin?.market_data.price_change_percentage_1h_in_currency[currency.toLowerCase()].toFixed(2) > 0;
   const profit24h = coin?.market_data.price_change_percentage_24h.toFixed(2) > 0;
@@ -176,14 +167,16 @@ const CoinPage = () => {
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const inWatchlist = watchlist.includes(coin?.id);
+
   const addToWatchlist = async () => {
     const coinRef = doc(db,"watchlist", user.uid);
-    console.log(user.uid)
+    console.log(inWatchlist);
     try {
       await setDoc(coinRef, 
-        {coins:watchlist?[coin?.id]:[...watchlist, coin?.id]},
+        { coins: watchlist ? [...watchlist, coin?.id] : [coin?.id] },
+        { merge: true }
       )
-      
       setAlert({
         open: true,
         message: `${coin.name} was added to your watchlist.`,
@@ -192,13 +185,35 @@ const CoinPage = () => {
     } catch (error) {
       setAlert({
         open: true,
-        message: `${coin.name} was added to your watchlist.`,
-        type: "success",
+        message: error.message,
+        type: "error",
       })
     }
   }
 
-  const inWatchlist = watchlist.includes(coin?.id);
+  const removeFromWatchlist = async () => {
+    const coinRef = doc(db,"watchlist", user.uid);
+    console.log(inWatchlist);
+    try {
+      await setDoc(coinRef, 
+        { coins: watchlist.filter((watch) => watch !== coin?.id) },
+        { merge: "true" }
+      )
+      setAlert({
+        open: true,
+        message: `${coin.name} was removed from your watchlist.`,
+        type: "success",
+      })
+    } catch (error) {
+      setAlert({
+        open: true,
+        message: error.message,
+        type: "error",
+      })
+    }
+  }
+
+  
 
   if(!coin) return (
     <div className={classes.container}>
@@ -412,15 +427,25 @@ const CoinPage = () => {
             </div>
           </div>
         </Fade>
+
         {user && (
           <Button
-          variant="contained"
-          className={classes.button}
-          onClick={addToWatchlist}
-        >
-          {inWatchlist ? "Remove from watchlist" : "Add to Watchlist"}
-        </Button>
+            variant= "contained"
+            style={{
+              width: "370px",
+              marginTop: 10,
+              marginLeft: "0.5rem",
+              fontFamily: "Montserrat",
+              fontWeight: "700",
+              marginBottom: "20px",
+              backgroundColor: inWatchlist ? "#ff0000" : "white",
+            }}
+            onClick={inWatchlist ? removeFromWatchlist : addToWatchlist}
+          >
+            {inWatchlist ? "Remove from watchlist" : "Add to Watchlist"}
+          </Button>
         )}
+
       </div>
         <Fade in={true} style={{transitionDelay:'150ms'}}>      
           <div className={classes.rightColumn}>
@@ -432,10 +457,10 @@ const CoinPage = () => {
               <Typography className={classes.rowText5}>
                 {ReactHtmlParser(coin?.description.en.split(". ")[0] + ". " + coin?.description.en.split(". ")[1] + ". ")}
               </Typography>
+            </div>
           </div>
-        </div>
-      </Fade>  
-    </div>
+        </Fade>  
+      </div>
   )
 }
 

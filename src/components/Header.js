@@ -5,13 +5,13 @@ import { FaFortAwesomeAlt } from 'react-icons/fa';
 
 import { CryptoState } from '../CryptoContext'
 import AuthModal from './Authentication/AuthModal';
-import UserSidebar from './UserSidebar';
+import UserSidebar from './Authentication/UserSidebar';
 
     const useStyles = makeStyles((theme) => ({
         select: {
             "& ul": {
                 
-                backgroundColor: "#cccccc",
+                backgroundColor: "white",
             },
             "& li": {
                 marginTop: "5px",

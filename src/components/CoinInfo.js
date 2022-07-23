@@ -21,7 +21,7 @@ const CoinInfo = ({ coin }) => {
     setHistoricData(data.prices);
   };
 
-  console.log("historic data", historicData)
+  //console.log("historic data", historicData)
 
   useEffect(()=>{
     fetchHistoricData();
@@ -204,7 +204,7 @@ const CoinInfo = ({ coin }) => {
                   <SelectButton
                     key={day.value}
                     onClick={()=>setDays(day.value)}
-                    selected={day.value=== days}
+                    selected={day.value === days}
                   >
                     {day.label}
                   </SelectButton>

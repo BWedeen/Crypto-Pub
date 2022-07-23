@@ -57,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: 15,
       fontWeight: 700,
       fontSize: 11.6,
+      backgroundColor: "white",
       fontFamily: "Montserrat",
     },
 }));

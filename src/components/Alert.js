@@ -2,7 +2,6 @@ import React from 'react';
 import { CryptoState } from '../CryptoContext';
 import { Snackbar } from '@material-ui/core';
 import  MuiAlert from '@material-ui/lab/Alert';
-import AlertTitle from '@material-ui/lab/AlertTitle';
 
 const Alert = () => {
 
@@ -19,7 +18,7 @@ const Alert = () => {
     return (
         <Snackbar 
             open={alert.open} 
-            autoHideDuration={3000} 
+            autoHideDuration={3500} 
             onClose={handleClose}
         >
             <MuiAlert

@@ -106,7 +106,7 @@ const CoinsTable = () => {
                                 <Table>
                                     <TableHead style={{ backgroundColor: "#fcfcfc" }}>
                                         <TableRow>
-                                            {["Coin","Price","24h Change", "Market Cap"].map((head) => (
+                                            {["Coin","Price","24H Change", "Market Cap"].map((head) => (
                                                 <TableCell
                                                     style={{
                                                         color: "black",
