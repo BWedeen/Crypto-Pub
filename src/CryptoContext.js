@@ -5,7 +5,6 @@ import { CoinList } from "./config/api";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "./firebase";
 import { doc, onSnapshot } from "firebase/firestore";
-import { useHistory } from "react-router-dom";
 
 const Crypto = createContext();
 
@@ -21,7 +20,7 @@ const CryptoContext = ({ children }) => {
     type: "success",
   });
   const [watchlist, setWatchlist] = useState([]);
-  const history = useHistory();
+ 
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {

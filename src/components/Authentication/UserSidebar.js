@@ -45,7 +45,6 @@ const useStyles = makeStyles({
     flex: 1,
     width: "100%",
     backgroundColor: "rgba(0,0,0,0.45)",
-    borderRadius: 10,
     padding: 15,
     paddingTop: 10,
     display: "flex",
