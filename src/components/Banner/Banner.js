@@ -1,4 +1,10 @@
-import { Container, makeStyles, Typography, Fade, createTheme } from "@material-ui/core";
+import {
+  Container,
+  makeStyles,
+  Typography,
+  Fade,
+  createTheme,
+} from "@material-ui/core";
 import Carousel from "./Carousel";
 
 const theme = createTheme();
@@ -18,10 +24,10 @@ const useStyles = makeStyles(() => ({
     flexDirection: "column",
     paddingTop: 5,
     justifyContent: "space-around",
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down("sm")]: {
       height: 525,
       paddingTop: 125,
-    }
+    },
   },
   tagline: {
     display: "flex",
@@ -29,7 +35,6 @@ const useStyles = makeStyles(() => ({
     flexDirection: "column",
     justifyContent: "center",
     textAlign: "center",
-    
   },
   carousel: {
     height: "50%",
@@ -42,41 +47,41 @@ function Banner() {
   const classes = useStyles();
 
   return (
-    <Fade in={true} style={{transitionDelay:'100ms'}}>
-    <div className={classes.banner}>
-      <Container className={classes.bannerContent}>
-        <div className={classes.tagline}>
-          <Fade in={true} style={{transitionDelay:'150ms'}}>
-            <Typography
-              variant="h2"
-              style={{
-                fontWeight: "bold",
-                marginTop: -45,
-                letterSpacing: 8.8,
-                fontFamily: "'Bungee', cursive",
-              }}
-            >
-              Crypto Pub
-            </Typography>
-          </Fade>
-          <Fade in={true} style={{transitionDelay:'200ms'}}>
-            <Typography
-              variant="subtitle2"
-              style={{
-                paddingTop: 17,
-                color: "white",
-                letterSpacing: 1,
-                fontWeight: 800,
-                fontFamily: "'Montserrat Alternates', sans-serif",
-              }}
-            >
-              Keep track of every major cryptocurrency, all in one place.
-            </Typography>
-          </Fade>
-        </div>
-        <Carousel />
-      </Container>
-    </div>
+    <Fade in={true} style={{ transitionDelay: "100ms" }}>
+      <div className={classes.banner}>
+        <Container className={classes.bannerContent}>
+          <div className={classes.tagline}>
+            <Fade in={true} style={{ transitionDelay: "150ms" }}>
+              <Typography
+                variant="h2"
+                style={{
+                  fontWeight: "bold",
+                  marginTop: -45,
+                  letterSpacing: 8.8,
+                  fontFamily: "'Bungee', cursive",
+                }}
+              >
+                Crypto Pub
+              </Typography>
+            </Fade>
+            <Fade in={true} style={{ transitionDelay: "200ms" }}>
+              <Typography
+                variant="subtitle2"
+                style={{
+                  paddingTop: 17,
+                  color: "white",
+                  letterSpacing: 1,
+                  fontWeight: 800,
+                  fontFamily: "'Montserrat Alternates', sans-serif",
+                }}
+              >
+                Keep track of every major cryptocurrency, all in one place.
+              </Typography>
+            </Fade>
+          </div>
+          <Carousel />
+        </Container>
+      </div>
     </Fade>
   );
 }

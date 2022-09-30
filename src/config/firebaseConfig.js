@@ -10,7 +10,7 @@ const firebaseConfig = {
   projectId: "crypto-pub",
   storageBucket: "crypto-pub.appspot.com",
   messagingSenderId: "1062987027981",
-  appId: "1:1062987027981:web:37744d0c3af164997a6744"
+  appId: "1:1062987027981:web:37744d0c3af164997a6744",
 };
 
 // Initialize Firebase

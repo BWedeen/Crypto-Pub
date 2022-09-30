@@ -1,14 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React from "react";
+import ReactDOM from "react-dom/client";
 
-import './index.css';
-import App from './App';
-import CryptoContext from './CryptoContext';
+import "./index.css";
+import App from "./App";
+import CryptoContext from "./CryptoContext";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <CryptoContext>
-        <App />
-    </CryptoContext>
-
+  <CryptoContext>
+    <App />
+  </CryptoContext>
 );

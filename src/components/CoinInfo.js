@@ -1,13 +1,33 @@
-import { createTheme, makeStyles, ThemeProvider, Typography } from '@material-ui/core';
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-import { HistoricalChart } from '../config/api';
-import { Line } from 'react-chartjs-2';
-import {Chart as ChartJS, LineElement, PointElement, LinearScale, Title, CategoryScale, Tooltip } from "chart.js";
-import { CryptoState } from '../CryptoContext';
-import SelectButton from './SelectButton';
+import {
+  createTheme,
+  makeStyles,
+  ThemeProvider,
+  Typography,
+} from "@material-ui/core";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { HistoricalChart } from "../config/api";
+import { Line } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title,
+  CategoryScale,
+  Tooltip,
+} from "chart.js";
+import { CryptoState } from "../CryptoContext";
+import SelectButton from "./SelectButton";
 
-ChartJS.register(LineElement, PointElement, LinearScale, Title, CategoryScale, Tooltip);
+ChartJS.register(
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title,
+  CategoryScale,
+  Tooltip
+);
 
 const CoinInfo = ({ coin }) => {
   const [historicData, setHistoricData] = useState();
@@ -16,17 +36,17 @@ const CoinInfo = ({ coin }) => {
   const { currency, symbol } = CryptoState();
 
   const fetchHistoricData = async () => {
-    const { data } = await axios.get(HistoricalChart(coin.id, days, currency ))
+    const { data } = await axios.get(HistoricalChart(coin.id, days, currency));
 
     setHistoricData(data.prices);
   };
 
   //console.log("historic data", historicData)
 
-  useEffect(()=>{
+  useEffect(() => {
     fetchHistoricData();
     //eslint-disable-next-line react-hooks/exhaustive-deps
-  },[currency, days])
+  }, [currency, days]);
 
   const chartDays = [
     {
@@ -45,7 +65,7 @@ const CoinInfo = ({ coin }) => {
       label: "1 Month",
       value: 30,
     },
-  ]
+  ];
 
   const chartDays2 = [
     {
@@ -64,7 +84,7 @@ const CoinInfo = ({ coin }) => {
       label: "All Time",
       value: "max",
     },
-  ]
+  ];
 
   const darkTheme = createTheme({
     palette: {
@@ -88,20 +108,20 @@ const CoinInfo = ({ coin }) => {
         marginTop: 0,
         padding: 20,
         paddingTop: 0,
-        marginInline:"4rem",
+        marginInline: "4rem",
       },
     },
-    heading:{
+    heading: {
       fontFamily: "Montserrat",
       fontSize: "35px",
-      textAlign:"center",
+      textAlign: "center",
       marginBottom: "10px",
       [theme.breakpoints.down("md")]: {
         width: "100%",
         fontSize: 15,
       },
     },
-    buttonRow:{
+    buttonRow: {
       [theme.breakpoints.down("md")]: {
         width: "100%",
         textAlign: "center",
@@ -115,127 +135,122 @@ const CoinInfo = ({ coin }) => {
   return (
     <ThemeProvider theme={darkTheme}>
       <div className={classes.container}>
-        {
-          !historicData ? (
-            <></>
-          ) : (
-            <>
-              <Typography
-                variant="h3"
-                className={classes.heading}
-              >
-                {coin.name} price ({currency}) over 
-                <b>
-                  {days===1 && " the past 24 hours"}
-                  {days===7 && " the past week"}
-                  {days===14 && " the past 2 weeks"}
-                  {days===30 && " the past month"}
-                  {days===90 && " the past 3 months"}
-                  {days===365 && " the past year"}
-                  {days===1096 && " the past 3 years"}
-                  {days==="max" && " it's lifetime"}
-                </b>.
-              </Typography>
-              <Line
-                data={{
-                    labels: historicData.map((coin) => {
-                      let date = new Date(coin[0]);
-                      let time =
-                        date.getHours() > 12
-                          ? `${date.getHours() - 12}:${date.getMinutes()} PM`
-                          : `${date.getHours()}:${date.getMinutes()} AM`;
-                      return days === 1 ? time : date.toLocaleDateString();
-                    }),
+        {!historicData ? (
+          <></>
+        ) : (
+          <>
+            <Typography variant="h3" className={classes.heading}>
+              {coin.name} price ({currency}) over
+              <b>
+                {days === 1 && " the past 24 hours"}
+                {days === 7 && " the past week"}
+                {days === 14 && " the past 2 weeks"}
+                {days === 30 && " the past month"}
+                {days === 90 && " the past 3 months"}
+                {days === 365 && " the past year"}
+                {days === 1096 && " the past 3 years"}
+                {days === "max" && " it's lifetime"}
+              </b>
+              .
+            </Typography>
+            <Line
+              data={{
+                labels: historicData.map((coin) => {
+                  let date = new Date(coin[0]);
+                  let time =
+                    date.getHours() > 12
+                      ? `${date.getHours() - 12}:${date.getMinutes()} PM`
+                      : `${date.getHours()}:${date.getMinutes()} AM`;
+                  return days === 1 ? time : date.toLocaleDateString();
+                }),
 
-                  datasets: [
-                    {
-                      data: historicData.map((coin) => coin[1]),
-                      label: `${symbol}`,
-                      borderColor: "#FFF",
+                datasets: [
+                  {
+                    data: historicData.map((coin) => coin[1]),
+                    label: `${symbol}`,
+                    borderColor: "#FFF",
+                  },
+                ],
+              }}
+              options={{
+                elements: {
+                  point: {
+                    radius: 0.8,
+                  },
+                },
+                scales: {
+                  x: {
+                    grid: {
+                      color: "rgba(145, 145, 145,0.2)",
+                      borderColor: "rgba(145, 145, 145,0.45)",
                     },
-                  ],
-                }}
-                options={{
-                  elements: {
-                    point: {
-                      radius: 0.8,
+                    ticks: {
+                      color: "white",
+                      font: {
+                        size: 15,
+                      },
                     },
                   },
-                  scales: {
-                    x: {
-                      grid: {
-                        color: 'rgba(145, 145, 145,0.2)',
-                        borderColor: 'rgba(145, 145, 145,0.45)'
-                      },
-                      ticks: {
-                        color: 'white',
-                        font: {
-                          size: 15,
-                          
-                        }
-                      }
+                  y: {
+                    grid: {
+                      color: "rgba(145, 145, 145,0.2)",
+                      borderColor: "rgba(145, 145, 145,0.45)",
                     },
-                    y: {
-                      grid: {
-                        color: 'rgba(145, 145, 145,0.2)',
-                        borderColor: 'rgba(145, 145, 145,0.45)'
+                    ticks: {
+                      color: "white",
+                      font: {
+                        size: 15,
+                        family: "Montserrat",
                       },
-                      ticks: {
-                        color: 'white',
-                        font: {
-                          size: 15,
-                          family: "Montserrat",
-                        }
-                      }
-                    }
+                    },
                   },
-                }}
-              />
-              <div
-                className={classes.buttonRow}
-                style={{
-                  display: "flex",
-                  marginTop: 20,
-                  justifyContent: "space-around",
-                  width: "100%",
-                }}
-              >
-                {chartDays.map(day => (
-                  <SelectButton
-                    key={day.value}
-                    onClick={()=>setDays(day.value)}
-                    selected={day.value === days}
-                  >
-                    {day.label}
-                  </SelectButton>
-                ))}
-              </div>
-              <div
-                className={classes.buttonRow}
-                style={{
-                  display: "flex",
-                  marginTop: 20,
-                  justifyContent: "space-around",
-                  width: "100%",
-                  paddingBottom: 25,
-                }}
-              >
-                {chartDays2.map(day => (
-                  <SelectButton
-                    key={day.value}
-                    onClick={()=>setDays(day.value)}
-                    selected={day.value=== days}
-                  >
-                    {day.label}
-                  </SelectButton>
-                ))}
-              </div>
-            </>
-          )
-        }
+                },
+              }}
+            />
+            <div
+              className={classes.buttonRow}
+              style={{
+                display: "flex",
+                marginTop: 20,
+                justifyContent: "space-around",
+                width: "100%",
+              }}
+            >
+              {chartDays.map((day) => (
+                <SelectButton
+                  key={day.value}
+                  onClick={() => setDays(day.value)}
+                  selected={day.value === days}
+                >
+                  {day.label}
+                </SelectButton>
+              ))}
+            </div>
+            <div
+              className={classes.buttonRow}
+              style={{
+                display: "flex",
+                marginTop: 20,
+                justifyContent: "space-around",
+                width: "100%",
+                paddingBottom: 25,
+              }}
+            >
+              {chartDays2.map((day) => (
+                <SelectButton
+                  key={day.value}
+                  onClick={() => setDays(day.value)}
+                  selected={day.value === days}
+                >
+                  {day.label}
+                </SelectButton>
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </ThemeProvider>
-  )
-}
+  );
+};
 
-export default CoinInfo
+export default CoinInfo;

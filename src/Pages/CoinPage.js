@@ -1,22 +1,20 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-import { Button } from '@material-ui/core';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
+import { Button } from "@material-ui/core";
 import ReactHtmlParser from "react-html-parser";
-import { AiOutlineInfoCircle } from 'react-icons/ai';
+import { AiOutlineInfoCircle } from "react-icons/ai";
 
-
-import { CryptoState } from '../CryptoContext';
-import { SingleCoin } from '../config/api';
-import CoinInfo from '../components/CoinInfo';
-import { Typography, CircularProgress, Tooltip, Fade } from '@material-ui/core';
-import { numberWithCommas } from '../components/Banner/Carousel';
-import { doc, setDoc } from 'firebase/firestore';
-import { db } from '../firebase';
+import { CryptoState } from "../CryptoContext";
+import { SingleCoin } from "../config/api";
+import CoinInfo from "../components/CoinInfo";
+import { Typography, CircularProgress, Tooltip, Fade } from "@material-ui/core";
+import { numberWithCommas } from "../components/Banner/Carousel";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../firebase";
 
 const CoinPage = () => {
-
   const useStyles = makeStyles((theme) => ({
     container: {
       display: "flex",
@@ -26,7 +24,7 @@ const CoinPage = () => {
         alignItems: "center",
       },
     },
-    sidebar:{
+    sidebar: {
       width: "28%",
       marginLeft: "60px",
       [theme.breakpoints.down("lg")]: {
@@ -58,24 +56,24 @@ const CoinPage = () => {
         marginBottom: "10px",
       },
     },
-    heading:{
+    heading: {
       marginBottom: 20,
       fontFamily: "Montserrat",
       fontSize: "35px",
       paddingTop: 2,
     },
-    symbol:{
+    symbol: {
       fontWeight: "bold",
       fontSize: "45px",
       fontFamily: "Montserrat",
     },
-    row:{
+    row: {
       width: "100%",
       display: "flex",
       flexDirection: "row",
       paddingBottom: "40px",
     },
-    column:{
+    column: {
       width: "50%",
       display: "flex",
       flexDirection: "column",
@@ -89,7 +87,7 @@ const CoinPage = () => {
         textAlign: "center",
       },
     },
-    rightColumn:{
+    rightColumn: {
       width: "74%",
       display: "flex",
       flexDirection: "column",
@@ -103,7 +101,7 @@ const CoinPage = () => {
         textAlign: "center",
       },
     },
-    rowText:{
+    rowText: {
       fontFamily: "Montserrat",
       fontSize: "22px",
       fontWeight: "600",
@@ -112,19 +110,19 @@ const CoinPage = () => {
         fontWeight: "600",
       },
     },
-    rowText2:{
+    rowText2: {
       fontFamily: "Montserrat",
       fontSize: "30px",
-      color:"#e2dbff"
+      color: "#e2dbff",
     },
-    rowText3:{
+    rowText3: {
       fontFamily: "Montserrat",
       fontSize: "20px",
       [theme.breakpoints.down("lg")]: {
-        paddingLeft: 27
+        paddingLeft: 27,
       },
     },
-    rowText4:{
+    rowText4: {
       fontFamily: "Montserrat",
       fontSize: "30px",
       fontWeight: "600",
@@ -133,12 +131,12 @@ const CoinPage = () => {
         fontWeight: "600",
       },
     },
-    rowText5:{
+    rowText5: {
       fontFamily: "Montserrat",
       fontSize: "20px",
       marginBottom: "50px",
       [theme.breakpoints.down("lg")]: {
-        paddingInline: 27
+        paddingInline: 27,
       },
     },
   }));
@@ -146,7 +144,7 @@ const CoinPage = () => {
   const classes = useStyles();
 
   const { id } = useParams();
-  const [coin, setCoin] = useState()
+  const [coin, setCoin] = useState();
 
   const { currency, symbol, user, watchlist, setAlert } = CryptoState();
 
@@ -158,8 +156,12 @@ const CoinPage = () => {
 
   //console.log("Page", coin);
 
-  const profit1h = coin?.market_data.price_change_percentage_1h_in_currency[currency.toLowerCase()].toFixed(2) > 0;
-  const profit24h = coin?.market_data.price_change_percentage_24h.toFixed(2) > 0;
+  const profit1h =
+    coin?.market_data.price_change_percentage_1h_in_currency[
+      currency.toLowerCase()
+    ].toFixed(2) > 0;
+  const profit24h =
+    coin?.market_data.price_change_percentage_24h.toFixed(2) > 0;
   const profit7d = coin?.market_data.price_change_percentage_7d.toFixed(2) > 0;
 
   useEffect(() => {
@@ -170,76 +172,92 @@ const CoinPage = () => {
   const inWatchlist = watchlist.includes(coin?.id);
 
   const addToWatchlist = async () => {
-    const coinRef = doc(db,"watchlist", user.uid);
+    const coinRef = doc(db, "watchlist", user.uid);
     console.log(inWatchlist);
     try {
-      await setDoc(coinRef, 
+      await setDoc(
+        coinRef,
         { coins: watchlist ? [...watchlist, coin?.id] : [coin?.id] },
         { merge: true }
-      )
+      );
       setAlert({
         open: true,
         message: `${coin.name} was added to your watchlist.`,
         type: "success",
-      })
+      });
     } catch (error) {
       setAlert({
         open: true,
         message: error.message,
         type: "error",
-      })
+      });
     }
-  }
+  };
 
   const removeFromWatchlist = async () => {
-    const coinRef = doc(db,"watchlist", user.uid);
+    const coinRef = doc(db, "watchlist", user.uid);
     console.log(inWatchlist);
     try {
-      await setDoc(coinRef, 
+      await setDoc(
+        coinRef,
         { coins: watchlist.filter((watch) => watch !== coin?.id) },
         { merge: "true" }
-      )
+      );
       setAlert({
         open: true,
         message: `${coin.name} was removed from your watchlist.`,
         type: "success",
-      })
+      });
     } catch (error) {
       setAlert({
         open: true,
         message: error.message,
         type: "error",
-      })
+      });
     }
-  }
+  };
 
-  
-
-  if(!coin) return (
-    <div className={classes.container}>
-      <div className={classes.sidebar}>
-        <div style={{display: 'flex', justifyContent: 'center', paddingTop: '10rem'}}>
+  if (!coin)
+    return (
+      <div className={classes.container}>
+        <div className={classes.sidebar}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              paddingTop: "10rem",
+            }}
+          >
+            <CircularProgress
+              style={{ color: "white" }}
+              size={250}
+              thickness={1}
+            />
+          </div>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignContent: "center",
+            width: "69%",
+            paddingTop: "13rem",
+            overflow: "hidden",
+          }}
+        >
           <CircularProgress
-                      style={{ color: "white" }}
-                      size={250}
-                      thickness={1}
+            style={{ color: "white" }}
+            size={250}
+            thickness={1}
           />
         </div>
       </div>
-      <div style={{display: 'flex', justifyContent: 'center', alignContent: "center", width:"69%", paddingTop: '13rem', overflow:"hidden"}}>
-        <CircularProgress
-          style={{ color: "white" }}
-          size={250}
-          thickness={1}
-        />
-      </div>
-    </div>
-  )
+    );
 
   return (
     <div className={classes.container}>
       <div className={classes.sidebar}>
-        <Fade in={true} style={{transitionDelay:'100ms'}}>
+        <Fade in={true} style={{ transitionDelay: "100ms" }}>
           <div className={classes.sidebarTop}>
             <img
               src={coin?.image.large}
@@ -257,19 +275,16 @@ const CoinPage = () => {
               >
                 {coin?.symbol}
               </Typography>
-              <Typography
-                variant="h3"
-                className={classes.heading}
-              >
+              <Typography variant="h3" className={classes.heading}>
                 {coin?.name}
               </Typography>
             </div>
           </div>
         </Fade>
-        <Fade in={true} style={{transitionDelay:'150ms'}}>
+        <Fade in={true} style={{ transitionDelay: "150ms" }}>
           <div className={classes.row}>
             <div className={classes.column}>
-              <Tooltip title="The current price of this asset." placement='top'>
+              <Tooltip title="The current price of this asset." placement="top">
                 <Typography className={classes.rowText}>
                   Current Price
                   <AiOutlineInfoCircle
@@ -277,152 +292,214 @@ const CoinPage = () => {
                     style={{
                       marginLeft: "5px",
                       color: "lightgray",
-                    }}     
-                 />
-                </Typography>
-              </Tooltip>
-              <Typography className={classes.rowText2}>
-                {symbol}{numberWithCommas(parseFloat(coin?.market_data.current_price[currency.toLowerCase()]).toFixed(2))}
-              </Typography>
-            </div>
-            <div className={classes.column}>
-              <Tooltip title="The percent change in trading volume for this asset compared to 1 hour ago." placement='top-start'>
-                <Typography className={classes.rowText}>
-                  1H Change
-                  <AiOutlineInfoCircle
-                      size={"15"}
-                      style={{
-                        marginLeft: "5px",
-                        color: "lightgray",
-                      }}     
+                    }}
                   />
                 </Typography>
               </Tooltip>
-              <Typography 
+              <Typography className={classes.rowText2}>
+                {symbol}
+                {numberWithCommas(
+                  parseFloat(
+                    coin?.market_data.current_price[currency.toLowerCase()]
+                  ).toFixed(2)
+                )}
+              </Typography>
+            </div>
+            <div className={classes.column}>
+              <Tooltip
+                title="The percent change in trading volume for this asset compared to 1 hour ago."
+                placement="top-start"
+              >
+                <Typography className={classes.rowText}>
+                  1H Change
+                  <AiOutlineInfoCircle
+                    size={"15"}
+                    style={{
+                      marginLeft: "5px",
+                      color: "lightgray",
+                    }}
+                  />
+                </Typography>
+              </Tooltip>
+              <Typography
                 className={classes.rowText2}
                 style={{
                   color: profit1h > 0 ? "rgb(14, 203, 129)" : "red",
                 }}
               >
-              {profit1h && "+"}{coin?.market_data.price_change_percentage_1h_in_currency[currency.toLowerCase()].toFixed(2)}%
+                {profit1h && "+"}
+                {coin?.market_data.price_change_percentage_1h_in_currency[
+                  currency.toLowerCase()
+                ].toFixed(2)}
+                %
               </Typography>
             </div>
           </div>
         </Fade>
-        <Fade in={true} style={{transitionDelay:'200ms'}}>
+        <Fade in={true} style={{ transitionDelay: "200ms" }}>
           <div className={classes.row}>
             <div className={classes.column}>
-              <Tooltip title="The percent change in trading volume for this asset compared to 24 hours ago." placement='top-start'>
+              <Tooltip
+                title="The percent change in trading volume for this asset compared to 24 hours ago."
+                placement="top-start"
+              >
                 <Typography className={classes.rowText}>
                   24H Change
                   <AiOutlineInfoCircle
-                      size={"15"}
-                      style={{
-                        marginLeft: "5px",
-                        color: "lightgray",
-                      }}     
+                    size={"15"}
+                    style={{
+                      marginLeft: "5px",
+                      color: "lightgray",
+                    }}
                   />
                 </Typography>
               </Tooltip>
-              <Typography className={classes.rowText2} style={{color: profit24h > 0 ? "rgb(14, 203, 129)" : "red"}}>
-              {profit24h && "+"}{coin?.market_data.price_change_percentage_24h.toFixed(2)}%
+              <Typography
+                className={classes.rowText2}
+                style={{ color: profit24h > 0 ? "rgb(14, 203, 129)" : "red" }}
+              >
+                {profit24h && "+"}
+                {coin?.market_data.price_change_percentage_24h.toFixed(2)}%
               </Typography>
             </div>
             <div className={classes.column}>
-              <Tooltip title="The percent change in trading volume for this asset compared to 7 days ago." placement='top-start'>
+              <Tooltip
+                title="The percent change in trading volume for this asset compared to 7 days ago."
+                placement="top-start"
+              >
                 <Typography className={classes.rowText}>
                   7D Change
                   <AiOutlineInfoCircle
-                      size={"15"}
-                      style={{
-                        marginLeft: "5px",
-                        color: "lightgray",
-                      }}     
+                    size={"15"}
+                    style={{
+                      marginLeft: "5px",
+                      color: "lightgray",
+                    }}
                   />
                 </Typography>
               </Tooltip>
-              <Typography 
+              <Typography
                 className={classes.rowText2}
-                style={{color: profit7d > 0 ? "rgb(14, 203, 129)" : "red"}}
+                style={{ color: profit7d > 0 ? "rgb(14, 203, 129)" : "red" }}
               >
-              {profit7d && "+"}{coin?.market_data.price_change_percentage_7d.toFixed(2)}%
+                {profit7d && "+"}
+                {coin?.market_data.price_change_percentage_7d.toFixed(2)}%
               </Typography>
             </div>
           </div>
         </Fade>
-        <Fade in={true} style={{transitionDelay:'250ms'}}>
+        <Fade in={true} style={{ transitionDelay: "250ms" }}>
           <div className={classes.row}>
             <div className={classes.column}>
-              <Tooltip title="The lowest price paid for this asset in the last day." placement='top-start'>
+              <Tooltip
+                title="The lowest price paid for this asset in the last day."
+                placement="top-start"
+              >
                 <Typography className={classes.rowText}>
                   24H Low
                   <AiOutlineInfoCircle
-                        size={"15"}
-                        style={{
-                          marginLeft: "5px",
-                          color: "lightgray",
-                        }}     
-                    />
-                </Typography>
-              </Tooltip>
-              <Typography className={classes.rowText2} style={{color:"#ffcfcf"}}>
-              {symbol}{numberWithCommas(parseFloat(coin?.market_data.low_24h[currency.toLowerCase()]).toFixed(2))}
-              </Typography>
-            </div>
-            <div className={classes.column}>
-              <Tooltip title="The highest price paid for this asset in the last day." placement='top-start'>
-                <Typography className={classes.rowText}>
-                  24H High
-                  <AiOutlineInfoCircle
-                      size={"15"}
-                      style={{
-                        marginLeft: "5px",
-                        color: "lightgray",
-                      }}     
+                    size={"15"}
+                    style={{
+                      marginLeft: "5px",
+                      color: "lightgray",
+                    }}
                   />
                 </Typography>
               </Tooltip>
-              <Typography className={classes.rowText2} style={{color:"#d2ffcf"}}>
-                {symbol}{numberWithCommas(parseFloat(coin?.market_data.high_24h[currency.toLowerCase()]).toFixed(2))}
+              <Typography
+                className={classes.rowText2}
+                style={{ color: "#ffcfcf" }}
+              >
+                {symbol}
+                {numberWithCommas(
+                  parseFloat(
+                    coin?.market_data.low_24h[currency.toLowerCase()]
+                  ).toFixed(2)
+                )}
+              </Typography>
+            </div>
+            <div className={classes.column}>
+              <Tooltip
+                title="The highest price paid for this asset in the last day."
+                placement="top-start"
+              >
+                <Typography className={classes.rowText}>
+                  24H High
+                  <AiOutlineInfoCircle
+                    size={"15"}
+                    style={{
+                      marginLeft: "5px",
+                      color: "lightgray",
+                    }}
+                  />
+                </Typography>
+              </Tooltip>
+              <Typography
+                className={classes.rowText2}
+                style={{ color: "#d2ffcf" }}
+              >
+                {symbol}
+                {numberWithCommas(
+                  parseFloat(
+                    coin?.market_data.high_24h[currency.toLowerCase()]
+                  ).toFixed(2)
+                )}
               </Typography>
             </div>
           </div>
         </Fade>
-        <Fade in={true} style={{transitionDelay:'250ms'}}>
+        <Fade in={true} style={{ transitionDelay: "250ms" }}>
           <div className={classes.row}>
             <div className={classes.column}>
-              <Tooltip title="A high market cap implies that the asset is highly valued by the market." placement='top-start'>
+              <Tooltip
+                title="A high market cap implies that the asset is highly valued by the market."
+                placement="top-start"
+              >
                 <Typography className={classes.rowText}>
                   Market Cap
                   <AiOutlineInfoCircle
-                      size={"15"}
-                      style={{
-                        marginLeft: "5px",
-                        color: "lightgray",
-                      }}     
+                    size={"15"}
+                    style={{
+                      marginLeft: "5px",
+                      color: "lightgray",
+                    }}
                   />
                 </Typography>
               </Tooltip>
               <Typography className={classes.rowText2}>
-                {symbol}{numberWithCommas(coin?.market_data.market_cap[currency.toLowerCase()].toString().slice(0, -6))}M
+                {symbol}
+                {numberWithCommas(
+                  coin?.market_data.market_cap[currency.toLowerCase()]
+                    .toString()
+                    .slice(0, -6)
+                )}
+                M
               </Typography>
             </div>
             <div className={classes.column}>
-              <Tooltip title="The total dollar value of all transactions for this asset over it's lifetime." placement='top-start'>
+              <Tooltip
+                title="The total dollar value of all transactions for this asset over it's lifetime."
+                placement="top-start"
+              >
                 <Typography className={classes.rowText}>
                   Total Volume
                   <AiOutlineInfoCircle
-                      size={"15"}
-                      style={{
-                        marginLeft: "5px",
-                        color: "lightgray",
-                      }}     
+                    size={"15"}
+                    style={{
+                      marginLeft: "5px",
+                      color: "lightgray",
+                    }}
                   />
                 </Typography>
               </Tooltip>
-              <Typography 
-                className={classes.rowText2}>
-                  {symbol}{numberWithCommas(coin?.market_data.total_volume[currency.toLowerCase()].toString().slice(0, -6))}M
+              <Typography className={classes.rowText2}>
+                {symbol}
+                {numberWithCommas(
+                  coin?.market_data.total_volume[currency.toLowerCase()]
+                    .toString()
+                    .slice(0, -6)
+                )}
+                M
               </Typography>
             </div>
           </div>
@@ -430,7 +507,7 @@ const CoinPage = () => {
 
         {user && (
           <Button
-            variant= "contained"
+            variant="contained"
             style={{
               width: "370px",
               marginTop: 10,
@@ -445,23 +522,30 @@ const CoinPage = () => {
             {inWatchlist ? "Remove from watchlist" : "Add to Watchlist"}
           </Button>
         )}
-
       </div>
-        <Fade in={true} style={{transitionDelay:'150ms'}}>      
-          <div className={classes.rightColumn}>
-            <CoinInfo coin={coin}/>
-            <div style={{width:"100%"}}>
-              <Typography className={classes.rowText4} style={{marginBlock:"20px"}} >
-                About {coin?.name}
-              </Typography>
-              <Typography className={classes.rowText5}>
-                {ReactHtmlParser(coin?.description.en.split(". ")[0] + ". " + coin?.description.en.split(". ")[1] + ". ")}
-              </Typography>
-            </div>
+      <Fade in={true} style={{ transitionDelay: "150ms" }}>
+        <div className={classes.rightColumn}>
+          <CoinInfo coin={coin} />
+          <div style={{ width: "100%" }}>
+            <Typography
+              className={classes.rowText4}
+              style={{ marginBlock: "20px" }}
+            >
+              About {coin?.name}
+            </Typography>
+            <Typography className={classes.rowText5}>
+              {ReactHtmlParser(
+                coin?.description.en.split(". ")[0] +
+                  ". " +
+                  coin?.description.en.split(". ")[1] +
+                  ". "
+              )}
+            </Typography>
           </div>
-        </Fade>  
-      </div>
-  )
-}
+        </div>
+      </Fade>
+    </div>
+  );
+};
 
-export default CoinPage
+export default CoinPage;

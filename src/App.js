@@ -1,18 +1,17 @@
-import { makeStyles } from '@material-ui/core';
-import 'react-alice-carousel/lib/alice-carousel.css';
-import { Router } from 'react-router';
-import { Route } from 'react-router-dom';
-import createHistory from 'history/createBrowserHistory';
+import { makeStyles } from "@material-ui/core";
+import "react-alice-carousel/lib/alice-carousel.css";
+import { Router } from "react-router";
+import { Route } from "react-router-dom";
+import createHistory from "history/createBrowserHistory";
 
-import './App.css';
+import "./App.css";
 import Header from "./components/Header";
-import HomePage from './Pages/HomePage';
-import CoinPage from './Pages/CoinPage';
-import Alert from './components/Alert';
+import HomePage from "./Pages/HomePage";
+import CoinPage from "./Pages/CoinPage";
+import Alert from "./components/Alert";
 
 function App() {
-
-  const history = createHistory(); 
+  const history = createHistory();
 
   const useStyles = makeStyles(() => ({
     App: {
@@ -26,13 +25,13 @@ function App() {
   const classes = useStyles();
 
   return (
-    <Router history={history}> 
+    <Router history={history}>
       <div className={classes.App}>
-        <Header/>
-        <Route exact path='/' component={HomePage} />
+        <Header />
+        <Route exact path="/" component={HomePage} />
         <Route exact path="/coins/:id" component={CoinPage} />
       </div>
-      <Alert/>
+      <Alert />
     </Router>
   );
 }
